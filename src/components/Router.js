@@ -18,7 +18,7 @@ export default function RouterComponent() {
 							<Link to="/users">Users</Link>
 						</li>
 						<li>
-							<Link to="/pikachu">Pikachu</Link>
+							<Link to="/pokemon/25">Pikachu</Link>
 						</li>
 					</ul>
 				</nav>

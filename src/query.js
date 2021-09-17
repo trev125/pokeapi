@@ -12,7 +12,7 @@ export const GET_POKEMON_STATS = gql`
 			pokemon_v2_pokemons(where: { pokemon_species_id: { _eq: $pokemonId } }, limit: 1) {
 				height
 				weight
-				pokemon_v2_pokemonmoves(limit: 2) {
+				pokemon_v2_pokemonmoves(limit: 30) {
 					pokemon_v2_move {
 						id
 						name

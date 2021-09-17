@@ -23,7 +23,6 @@ const CardPicture = ({ pokemonData }) => {
 
 	useEffect(() => {
 		axios.get(apiUrl + `pokemon/${pokemonData.name}`).then((response) => {
-			console.log(response.data.sprites.other["official-artwork"].front_default)
 			setImg(response.data.sprites.other["official-artwork"].front_default)
 			setLoading(false)
 		})
