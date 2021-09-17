@@ -185,9 +185,6 @@ const Card = ({ pokemonId }) => {
 			setPokemon(result.data.pokemon_v2_pokemonspecies[0])
 			setLoading(false)
 		})
-	useEffect(() => {
-		console.log(pokemon)
-	})
 
 	if (loading) {
 		return <div>Loading...</div>
@@ -196,8 +193,8 @@ const Card = ({ pokemonId }) => {
 		<CardOutline color={pokemon.pokemon_v2_pokemoncolor.name}>
 			<TopCard pokemonData={pokemon} />
 			<CardPicture pokemonData={pokemon} />
-			<CardDescription pokemonData={pokemon} />
 			<CardMoves pokemonData={pokemon} />
+			<CardDescription pokemonData={pokemon} />
 		</CardOutline>
 	)
 }

@@ -32,7 +32,7 @@ const Id = styled.p`
 `
 
 const TypeIcon = styled.p`
-	color: #7a7a7a;
+	color: #e8e8e8;
 `
 
 const updatePokemonTypeIcon = function (pokemonData) {
@@ -78,9 +78,9 @@ const TopCard = ({ pokemonData }) => {
 	const capitalizedName = pokemonData.name[0].toUpperCase() + pokemonData.name.substring(1)
 	return (
 		<TopBar className="d-flex justify-content-between">
-			<Id className="p-2">no. {pokemonData.id}</Id>
-			<Name className="p-2">{capitalizedName}</Name>
-			<TypeIcon className="p-2 ml-auto">
+			<Id className="m-1">no. {pokemonData.id}</Id>
+			<Name className="m-1">{capitalizedName}</Name>
+			<TypeIcon className="m-1 ml-auto">
 				{updatePokemonTypeIcon(pokemonData)} &nbsp;
 				{pokemonData.pokemon_v2_pokemons[0].pokemon_v2_pokemonstats[0].base_stat} HP
 			</TypeIcon>
