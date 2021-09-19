@@ -14,7 +14,7 @@ function colorNameToHex(color) {
 		azure: "#f0ffff",
 		beige: "#f5f5dc",
 		bisque: "#ffe4c4",
-		black: "#000000",
+		black: "#808080",
 		blanchedalmond: "#ffebcd",
 		blue: "#0000ff",
 		blueviolet: "#8a2be2",

@@ -55,7 +55,7 @@ export const GET_POKEMON_STATS = gql`
 
 export const GET_FIRST_100_POKEMON = gql`
 	query ($pokemonId: Int) {
-		pokemon_v2_pokemonspecies(limit: 100, offset: 0, order_by: { id: asc }) {
+		pokemon_v2_pokemonspecies(limit: 151, offset: 0, order_by: { id: asc }) {
 			id
 			name
 			pokemon_v2_pokemoncolor {
