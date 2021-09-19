@@ -1,17 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { GET_POKEMON_STATS } from "../../query"
-import { useState, useEffect } from "react"
 import TopCard from "./TopCard"
 import CardPicture from "./CardPicture"
 import CardDescription from "./CardDescription"
 import CardMoves from "./CardMoves"
-
-const client = new ApolloClient({
-	uri: "https://beta.pokeapi.co/graphql/v1beta",
-	cache: new InMemoryCache(),
-})
 
 function colorNameToHex(color) {
 	var colors = {
@@ -152,7 +144,7 @@ function colorNameToHex(color) {
 		turquoise: "#40e0d0",
 		violet: "#ee82ee",
 		wheat: "#f5deb3",
-		white: "#ffffff",
+		white: "#006400",
 		whitesmoke: "#f5f5f5",
 		yellow: "#daa520",
 		yellowgreen: "#9acd32",
@@ -169,26 +161,10 @@ const CardOutline = styled.div`
 	width: 375px;
 	height: 500px;
 	background-color: ${(props) => (props.color ? colorNameToHex(props.color) : "grey")};
+	margin: 2px;
 `
 
-// let pokemon = {}
-
-const Card = ({ pokemonId }) => {
-	const [pokemon, setPokemon] = useState({})
-	const [loading, setLoading] = useState(true)
-	client
-		.query({
-			query: GET_POKEMON_STATS,
-			variables: { pokemonId: pokemonId },
-		})
-		.then((result) => {
-			setPokemon(result.data.pokemon_v2_pokemonspecies[0])
-			setLoading(false)
-		})
-
-	if (loading) {
-		return <div>Loading...</div>
-	}
+const Card = ({ pokemon }) => {
 	return (
 		<CardOutline color={pokemon.pokemon_v2_pokemoncolor.name}>
 			<TopCard pokemonData={pokemon} />
