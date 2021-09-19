@@ -78,37 +78,22 @@ const updatePokemonTypeIcon = function (typeName) {
 }
 
 const CardMoves = ({ pokemonData }) => {
-	let pokemonMove1
-	let pokemonMove2
-	pokemonData.pokemon_v2_pokemons[0].pokemon_v2_pokemonmoves.forEach((move) => {
-		if (move.pokemon_v2_move.pokemon_v2_type.name !== "normal") {
-			pokemonMove1 = move.pokemon_v2_move
-		}
-		if (move.pokemon_v2_move.pokemon_v2_type.name === "normal") {
-			pokemonMove2 = move.pokemon_v2_move
-		}
+	let moves = []
+	pokemonData.pokemon_v2_pokemons[0].pokemon_v2_pokemonmoves.forEach((move, index) => {
+		console.log(move)
+		moves.push(
+			<MoveOutline key={index} className="d-flex justify-content-between p-1">
+				<MovePower className="m-1">
+					{updatePokemonTypeIcon(move.pokemon_v2_move.pokemon_v2_type.name)}&nbsp;
+					{move.pokemon_v2_move.pp}&frasl;{move.pokemon_v2_move.pp}
+				</MovePower>
+				<MoveName className="m-1">{move.pokemon_v2_move.name}</MoveName>
+				<MovePower className="m-1">{move.pokemon_v2_move.power}</MovePower>
+			</MoveOutline>
+		)
 	})
 
-	return (
-		<>
-			<MoveOutline className="d-flex justify-content-between p-1">
-				<MovePower className="m-1">
-					{updatePokemonTypeIcon(pokemonMove1.pokemon_v2_type.name)}&nbsp;
-					{pokemonMove1.pp}&frasl;{pokemonMove1.pp}
-				</MovePower>
-				<MoveName className="m-1">{pokemonMove1.name}</MoveName>
-				<MovePower className="m-1">{pokemonMove1.power}</MovePower>
-			</MoveOutline>
-			<MoveOutline className="d-flex justify-content-between p-1">
-				<MovePower className="m-1">
-					{updatePokemonTypeIcon(pokemonMove2.pokemon_v2_type.name)}&nbsp;
-					{pokemonMove2.pp}&frasl;{pokemonMove2.pp}
-				</MovePower>
-				<MoveName className="m-1">{pokemonMove2.name}</MoveName>
-				<MovePower className="m-1">{pokemonMove2.power}</MovePower>
-			</MoveOutline>
-		</>
-	)
+	return moves
 }
 
 export default CardMoves
