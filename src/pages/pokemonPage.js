@@ -1,42 +1,35 @@
-import { React, useState } from "react"
-import Card from "../components/Card/MainCard.js"
+import Card from "../common/components/pokemon-card.js"
+import pokeball from "../common/img/pokeball.gif"
+import "../common/style.css"
 import { useParams, useHistory } from "react-router-dom"
-import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { GET_POKEMON_STATS } from "../query.js"
-
-const client = new ApolloClient({
-	uri: "https://beta.pokeapi.co/graphql/v1beta",
-	cache: new InMemoryCache(),
-})
+import { usePokemon } from "../common/apollo/hooks/use-pokemon.js"
 
 export default function PokemonPage() {
 	let { id } = useParams()
 	const history = useHistory()
-	const [pokemon, setPokemon] = useState({})
-	const [loading, setLoading] = useState(true)
-	client
-		.query({
-			query: GET_POKEMON_STATS,
-			variables: { pokemonId: id },
-		})
-		.then((result) => {
-			setPokemon(result.data.pokemon_v2_pokemonspecies[0])
-			setLoading(false)
-		})
+	const { loading, errors, pokemonStats } = usePokemon(id)
+
 	function goToNext() {
 		id++
 		history.push("/pokemon/" + id)
 	}
+
 	function goToPrev() {
 		id--
 		history.push("/pokemon/" + id)
 	}
+
 	if (loading) {
-		return <div>Loading...</div>
+		return <img src={pokeball} alt="loading" style={{ width: "225px" }} />
 	}
+
+	if (errors) {
+		return <div>Oops</div>
+	}
+
 	return (
 		<>
-			<Card pokemon={pokemon}></Card>
+			<Card pokemon={pokemonStats} loading={loading}></Card>
 			<button type="button" onClick={goToPrev}>
 				Go to previous Pokemon!
 			</button>
