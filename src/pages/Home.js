@@ -1,38 +1,24 @@
-import { React, useState } from "react"
-import Card from "../components/Card/MainCard.js"
-import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { GET_FIRST_100_POKEMON } from "../query.js"
-
-const client = new ApolloClient({
-	uri: "https://beta.pokeapi.co/graphql/v1beta",
-	cache: new InMemoryCache(),
-})
+import { useAllPokemon } from "../common/apollo/hooks/use-all-pokemon.js"
+import pokeball from "../common/img/pokeball.gif"
 
 export default function Home() {
-	const [pokemon, setPokemon] = useState([])
-	const [loading, setLoading] = useState(true)
-	client
-		.query({
-			query: GET_FIRST_100_POKEMON,
-		})
-		.then((result) => {
-			setPokemon(result.data.pokemon_v2_pokemonspecies)
-			setLoading(false)
-		})
+	const { loading, errors, allPokemonStats } = useAllPokemon()
 
-	let pokemonList = []
-	pokemon.forEach((poke, index) => {
-		pokemonList.push(<Card key={index} pokemon={poke} className="p-2"></Card>)
-	})
+	if (errors) {
+		return <div>Oops</div>
+	}
 
 	if (loading) {
-		return <div>Loading...</div>
+		return <img src={pokeball} alt="loading" style={{ width: "225px" }} />
 	}
 
 	return (
 		<>
-			<div className="d-flex flex-wrap">{pokemonList}</div>
-			{/* <Card pokemon={pokemon}></Card> */}
+			{allPokemonStats.map((poke) => (
+				<div key={poke.pokedexId}>
+					<a href={`/pokemon/${poke.pokedexId}`}>{poke.pokemonName}</a>
+				</div>
+			))}
 		</>
 	)
 }
