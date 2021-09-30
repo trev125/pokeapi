@@ -3,6 +3,7 @@ import pokeball from "../common/img/pokeball.gif"
 import "../common/style.css"
 import { useParams, useHistory } from "react-router-dom"
 import { usePokemon } from "../common/apollo/hooks/use-pokemon.js"
+import Button from "../common/components/button.js"
 
 export default function PokemonPage() {
 	let { id } = useParams()
@@ -27,15 +28,20 @@ export default function PokemonPage() {
 		return <div>Oops</div>
 	}
 
-	return (
-		<>
-			<Card pokemon={pokemonStats} loading={loading}></Card>
-			<button type="button" onClick={goToPrev}>
-				Go to previous Pokemon!
-			</button>
-			<button type="button" onClick={goToNext}>
-				Go to next Pokemon!
-			</button>
-		</>
-	)
+	if (pokemonStats.pokedexId === 1) {
+		return (
+			<>
+				<Card pokemon={pokemonStats} loading={loading}></Card>
+				<Button text="Go to next Pokemon" handleClick={goToNext} />
+			</>
+		)
+	} else {
+		return (
+			<>
+				<Card pokemon={pokemonStats} loading={loading}></Card>
+				<Button text="Go to previous Pokemon" handleClick={goToPrev} />
+				<Button text="Go to next Pokemon" handleClick={goToNext} />
+			</>
+		)
+	}
 }
