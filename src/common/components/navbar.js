@@ -6,13 +6,17 @@ const NavBar = () => {
 		<nav className="navbar navbar-light bg-light">
 			<ul className="navbar-nav mr-auto">
 				<li className="nav-item">
-					<Link to="/">Home</Link>
+					<Link data-testid="nav-pikachu-link" to="/">
+						Home
+					</Link>
 				</li>
 				<li className="nav-item">
-					<Link to="/pokemon/25">Pikachu</Link>
+					<Link data-testid="nav-pikachu-link" to="/pokemon/25">
+						Pikachu
+					</Link>
 				</li>
 			</ul>
-			<Link to="/" className="navbar-brand">
+			<Link data-testid="nav-home-logo-link" to="/" className="navbar-brand">
 				<img src={PokemonLogo} width="100" className="d-inline-block align-top" alt="" />
 			</Link>
 		</nav>
