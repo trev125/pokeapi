@@ -61,6 +61,7 @@ export const useAllPokemon = () => {
 		const pokemonStats = {
 			pokedexId: poke?.id,
 			pokemonName: poke?.name,
+			capitalizedPokemonName: poke?.name?.[0].toUpperCase() + poke?.name.substring(1),
 		}
 		return pokemonStats
 	})

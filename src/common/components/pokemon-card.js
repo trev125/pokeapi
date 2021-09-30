@@ -1,8 +1,6 @@
 import styled from "styled-components"
 import "../../common/style.css"
-import { useState, useEffect } from "react"
-import pokeball from "../img/pokeball.gif"
-import axios from "axios"
+import Picture from "./pokemon-picture"
 import {
 	GiPowerLightning,
 	GiWaterDrop,
@@ -21,6 +19,7 @@ import {
 	GiSpikedDragonHead,
 	GiPapers,
 } from "react-icons/gi"
+import { spaceToDash } from "../utils"
 
 function colorNameToHex(color) {
 	var colors = {
@@ -246,17 +245,6 @@ const MovePower = styled.p`
 	margin-right: 10px;
 `
 
-const PokemonPicture = styled.div`
-	font-family: Arial, Helvetica, sans-serif;
-	border: solid 3px #000000;
-	margin: 10px;
-	background-color: #828282;
-`
-
-const PokemonImage = styled.img`
-	width: 225px;
-`
-
 const TopBar = styled.span`
 	font-family: Arial, Helvetica, sans-serif;
 `
@@ -273,20 +261,12 @@ const TypeIcon = styled.p`
 	color: #e8e8e8;
 `
 
-const apiUrl = "https://pokeapi.co/api/v2/"
-
 const Card = ({ pokemon }) => {
 	const capitalizedName = pokemon.pokemonName[0].toUpperCase() + pokemon.pokemonName.substring(1)
-	const [img, setImg] = useState(pokeball)
-	useEffect(() => {
-		axios.get(apiUrl + `pokemon/${pokemon.pokemonName}`).then((response) => {
-			setImg(response.data.sprites.other["official-artwork"].front_default)
-		})
-	}, [pokemon])
 
 	return (
 		<CardOutline color={pokemon.pokeonColor}>
-			<TopBar data-testid={`${pokemon.pokemonName}-topbar`} className="d-flex justify-content-between">
+			<TopBar data-testid={`${spaceToDash(pokemon.pokemonName)}-topbar`} className="d-flex justify-content-between">
 				<Id className="m-1">no. {pokemon.pokedexId}</Id>
 				<Name className="m-1">{capitalizedName}</Name>
 				<TypeIcon className="m-1 ml-auto">
@@ -294,11 +274,9 @@ const Card = ({ pokemon }) => {
 					{pokemon.pokemonHP} HP
 				</TypeIcon>
 			</TopBar>
-			<PokemonPicture data-testid={`${pokemon.pokemonName}-picture-outline`} className="d-flex justify-content-center">
-				<PokemonImage data-testid={`${pokemon.pokemonName}-picture`} src={img} alt={pokemon.pokemonName} />
-			</PokemonPicture>
+			<Picture name={pokemon.pokemonName} />
 			<MoveOutline
-				data-testid={`${pokemon.pokemonName}-move-1`}
+				data-testid={`${spaceToDash(pokemon.pokemonName)}-move-1`}
 				key={pokemon.pokemonMove1.id}
 				className="d-flex justify-content-between p-1"
 			>
@@ -310,7 +288,7 @@ const Card = ({ pokemon }) => {
 				<MovePower className="m-1">{pokemon.pokemonMove1.power}</MovePower>
 			</MoveOutline>
 			<MoveOutline
-				data-testid={`${pokemon.pokemonName}-move-2`}
+				data-testid={`${spaceToDash(pokemon.pokemonName)}-move-2`}
 				key={pokemon.pokemonMove2.id}
 				className="d-flex justify-content-between p-1"
 			>
@@ -321,7 +299,10 @@ const Card = ({ pokemon }) => {
 				<MoveName className="m-1">{pokemon.pokemonMove2.name}</MoveName>
 				<MovePower className="m-1">{pokemon.pokemonMove2.power}</MovePower>
 			</MoveOutline>
-			<Description data-testid={`${pokemon.pokemonName}-description`} className="d-flex justify-content-center p-1">
+			<Description
+				data-testid={`${spaceToDash(pokemon.pokemonName)}-description`}
+				className="d-flex justify-content-center p-1"
+			>
 				{pokemon.pokemonFlavorText}
 			</Description>
 		</CardOutline>
