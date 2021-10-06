@@ -275,30 +275,21 @@ const Card = ({ pokemon }) => {
 				</TypeIcon>
 			</TopBar>
 			<Picture name={pokemon.pokemonName} />
-			<MoveOutline
-				data-testid={`${spaceToDash(pokemon.pokemonName)}-move-1`}
-				key={pokemon.pokemonMove1.id}
-				className="d-flex justify-content-between p-1"
-			>
-				<MovePower className="m-1">
-					{updatePokemonTypeIcon(pokemon.pokemonMove1.pokemon_v2_type.name)}&nbsp;
-					{pokemon.pokemonMove1.pp}&frasl;{pokemon.pokemonMove1.pp}
-				</MovePower>
-				<MoveName className="m-1">{pokemon.pokemonMove1.name}</MoveName>
-				<MovePower className="m-1">{pokemon.pokemonMove1.power}</MovePower>
-			</MoveOutline>
-			<MoveOutline
-				data-testid={`${spaceToDash(pokemon.pokemonName)}-move-2`}
-				key={pokemon.pokemonMove2.id}
-				className="d-flex justify-content-between p-1"
-			>
-				<MovePower className="m-1">
-					{updatePokemonTypeIcon(pokemon.pokemonMove2.pokemon_v2_type.name)}&nbsp;
-					{pokemon.pokemonMove2.pp}&frasl;{pokemon.pokemonMove2.pp}
-				</MovePower>
-				<MoveName className="m-1">{pokemon.pokemonMove2.name}</MoveName>
-				<MovePower className="m-1">{pokemon.pokemonMove2.power}</MovePower>
-			</MoveOutline>
+			{pokemon.pokemonMoves &&
+				pokemon.pokemonMoves.map((move) => (
+					<MoveOutline
+						data-testid={`${spaceToDash(pokemon.pokemonName)}-move-1`}
+						key={move.pokemon_v2_move.id}
+						className="d-flex justify-content-between p-1"
+					>
+						<MovePower className="m-1">
+							{updatePokemonTypeIcon(move.pokemon_v2_move.pokemon_v2_type.name)}&nbsp;
+							{move.pokemon_v2_move.pp}&frasl;{move.pokemon_v2_move.pp}
+						</MovePower>
+						<MoveName className="m-1">{move.pokemon_v2_move.name}</MoveName>
+						<MovePower className="m-1">{move.pokemon_v2_move.power}</MovePower>
+					</MoveOutline>
+				))}
 			<Description
 				data-testid={`${spaceToDash(pokemon.pokemonName)}-description`}
 				className="d-flex justify-content-center p-1"
