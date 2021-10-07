@@ -6,7 +6,7 @@ import Home from "../pages/Home"
 export default function RouterComponent() {
 	return (
 		<Router>
-			<nav className="navbar navbar-light bg-light">
+			<nav className="navbar navbar-light bg-light" data-testid="navbar">
 				<ul className="navbar-nav mr-auto">
 					<li className="nav-item">
 						<Link data-testid="nav-home-link" to="/">

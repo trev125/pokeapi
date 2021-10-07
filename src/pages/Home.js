@@ -14,7 +14,6 @@ export default function Home() {
 	const { loading, errors, allPokemonStats } = useAllPokemon()
 	console.log(allPokemonStats)
 	let options = [...new Set(allPokemonStats.map((item) => item.pokemonType))]
-	// options.unshift("all")
 	const [filteredPokemon, setFilteredPokemon] = useState([])
 
 	useEffect(() => {
@@ -29,10 +28,10 @@ export default function Home() {
 	}
 
 	if (loading) {
-		return <img src={pokeball} alt="loading" style={{ width: "225px" }} />
+		return <img src={pokeball} alt="loading" style={{ width: "225px" }} data-testid="pokeball-loading-gif" />
 	}
 
-	function filterByType(type) {
+	const filterByType = (type) => {
 		console.log(type.value.toLowerCase())
 		if (type.value.toLowerCase() === "all") {
 			setFilteredPokemon(allPokemonStats)
@@ -42,8 +41,6 @@ export default function Home() {
 		}
 	}
 
-	// console.log({ filteredPokemon, allPokemonStats })
-
 	return (
 		<>
 			<Dropdown
@@ -52,11 +49,11 @@ export default function Home() {
 				value={"all"}
 				placeholder="Select an option"
 			/>
-			<div className="d-flex flex-wrap">
+			<div className="d-flex flex-wrap" data-testid="pokemon-home-page-wrapper">
 				{filteredPokemon.map((poke) => (
-					<div key={poke.pokedexId} className="p-1">
+					<div key={poke.pokedexId} className="p-1" data-testid={`home-page-card-${poke.pokemonName}`}>
 						<a href={`/pokemon/${poke.pokedexId}`}>
-							<Name className="d-flex justify-content-center">
+							<Name className="d-flex justify-content-center" data-testid={`home-page-name-${poke.pokemonName}`}>
 								{poke.pokedexId}. {poke.capitalizedPokemonName}
 							</Name>
 							<Picture name={poke.pokemonName} />
