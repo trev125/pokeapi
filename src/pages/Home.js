@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAllPokemon } from "../common/apollo/hooks/use-all-pokemon.js"
+import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import pokeball from "../common/img/pokeball.gif"
 import Picture from "../common/components/pokemon-picture.js"
@@ -53,12 +54,12 @@ export default function Home() {
 			<div className="d-flex flex-wrap" data-testid="pokemon-home-page-wrapper">
 				{filteredPokemon.map((poke) => (
 					<div key={poke.pokedexId} className="p-1" data-testid={`home-page-card-${poke.pokemonName}`}>
-						<a href={`/pokemon/${poke.pokedexId}`}>
+						<Link to={`/pokemon/${poke.pokedexId}`}>
 							<Name className="d-flex justify-content-center" data-testid={`home-page-name-${poke.pokemonName}`}>
 								{poke.pokedexId}. {poke.capitalizedPokemonName}
 							</Name>
 							<Picture name={poke.pokemonName} />
-						</a>
+						</Link>
 					</div>
 				))}
 			</div>
