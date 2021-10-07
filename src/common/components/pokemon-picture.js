@@ -17,16 +17,22 @@ const PokemonImage = styled.img`
 const apiUrl = "https://pokeapi.co/api/v2/"
 
 const Picture = ({ name }) => {
-	const [img, setImg] = useState(pokeball)
+	const [img, setImg] = useState()
+	const [loading, setLoading] = useState(true)
 	useEffect(() => {
 		axios.get(apiUrl + `pokemon/${name}`).then((response) => {
 			setImg(response.data.sprites.other["official-artwork"].front_default)
+			setLoading(false)
 		})
 	}, [name])
 
 	return (
-		<PokemonPicture data-testid={`${name}-picture-outline`} className="d-flex justify-content-center">
-			<PokemonImage data-testid={`${name}-picture`} src={img} alt={name} />
+		<PokemonPicture className="d-flex justify-content-center">
+			{loading ? (
+				<PokemonImage data-testid={"pokeball-loading-gif"} src={pokeball} alt={name} />
+			) : (
+				<PokemonImage data-testid={`${name}-picture`} src={img} alt={name} />
+			)}
 		</PokemonPicture>
 	)
 }

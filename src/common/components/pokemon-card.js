@@ -265,7 +265,7 @@ const Card = ({ pokemon }) => {
 	const capitalizedName = pokemon.pokemonName[0].toUpperCase() + pokemon.pokemonName.substring(1)
 
 	return (
-		<CardOutline color={pokemon.pokeonColor}>
+		<CardOutline color={pokemon.pokeonColor} data-testid={`${spaceToDash(pokemon.pokemonName)}-card`}>
 			<TopBar data-testid={`${spaceToDash(pokemon.pokemonName)}-topbar`} className="d-flex justify-content-between">
 				<Id className="m-1">no. {pokemon.pokedexId}</Id>
 				<Name className="m-1">{capitalizedName}</Name>
@@ -276,18 +276,22 @@ const Card = ({ pokemon }) => {
 			</TopBar>
 			<Picture name={pokemon.pokemonName} />
 			{pokemon.pokemonMoves &&
-				pokemon.pokemonMoves.map((move) => (
+				pokemon.pokemonMoves.map((move, index) => (
 					<MoveOutline
-						data-testid={`${spaceToDash(pokemon.pokemonName)}-move-1`}
+						data-testid={`${spaceToDash(pokemon.pokemonName)}-move-${index}`}
 						key={move.pokemon_v2_move.id}
 						className="d-flex justify-content-between p-1"
 					>
-						<MovePower className="m-1">
+						<MovePower className="m-1" data-testid={`${spaceToDash(pokemon.pokemonName)}-${index}-pp`}>
 							{updatePokemonTypeIcon(move.pokemon_v2_move.pokemon_v2_type.name)}&nbsp;
 							{move.pokemon_v2_move.pp}&frasl;{move.pokemon_v2_move.pp}
 						</MovePower>
-						<MoveName className="m-1">{move.pokemon_v2_move.name}</MoveName>
-						<MovePower className="m-1">{move.pokemon_v2_move.power}</MovePower>
+						<MoveName data-testid={`${spaceToDash(pokemon.pokemonName)}-${index}-name`} className="m-1">
+							{move.pokemon_v2_move.name}
+						</MoveName>
+						<MovePower data-testid={`${spaceToDash(pokemon.pokemonName)}-${index}-power`} className="m-1">
+							{move.pokemon_v2_move.power}
+						</MovePower>
 					</MoveOutline>
 				))}
 			<Description

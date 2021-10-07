@@ -21,7 +21,7 @@ export default function PokemonPage() {
 	}
 
 	if (loading) {
-		return <img src={pokeball} alt="loading" style={{ width: "225px" }} />
+		return <img src={pokeball} alt="loading" style={{ width: "225px" }} data-testid="pokeball-loading-gif" />
 	}
 
 	if (errors) {
