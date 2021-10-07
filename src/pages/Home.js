@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useAllPokemon } from "../common/apollo/hooks/use-all-pokemon.js"
 import { useState, useEffect } from "react"
 import pokeball from "../common/img/pokeball.gif"
