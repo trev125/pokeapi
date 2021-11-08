@@ -13,6 +13,13 @@ export const GET_FIRST_151_POKEMON = gql`
 						name
 					}
 				}
+				pokemon_v2_pokemonstats {
+					base_stat
+					pokemon_v2_stat {
+						id
+						name
+					}
+				}
 			}
 		}
 	}
@@ -27,8 +34,9 @@ export const useAllPokemon = () => {
 		const pokemonStats = {
 			pokedexId: poke?.id,
 			pokemonName: poke?.name,
-			pokemonIsLegendary: poke?.is_legendary,
+			pokemonIsLegendary: poke?.is_legendary.toString(),
 			pokemonType: poke?.pokemon_v2_pokemons?.[0]?.pokemon_v2_pokemontypes[0]?.pokemon_v2_type?.name,
+			pokemonHP: poke?.pokemon_v2_pokemons?.[0]?.pokemon_v2_pokemonstats?.[0]?.base_stat,
 			capitalizedPokemonName: poke?.name?.[0].toUpperCase() + poke?.name.substring(1),
 		}
 		return pokemonStats

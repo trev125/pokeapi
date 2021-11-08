@@ -1,68 +1,45 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useAllPokemon } from "../common/apollo/hooks/use-all-pokemon.js"
 import { Link } from "react-router-dom"
-import { useState, useEffect } from "react"
-import pokeball from "../common/img/pokeball.gif"
-import Picture from "../common/components/pokemon-picture.js"
+import { CgPokemon, CgGames } from "react-icons/cg"
+import { BsFillBarChartFill } from "react-icons/bs"
 import styled from "styled-components"
-import Dropdown from "react-dropdown"
-import "react-dropdown/style.css"
+import { IconContext } from "react-icons"
 
-const Name = styled.p`
-	color: #000;
+const CenterdContent = styled.div`
+	display: flex;
+	justifycontent: center;
+	alignitems: center;
+`
+
+const CenterdContentTitle = styled.div`
+	text-align: center;
+	font-size: 2em;
+	margin-left: 10px;
+`
+
+const IconLink = styled(Link)`
+	color: grey;
+	&:hover {
+		color: #005993;
+	}
 `
 
 export default function Home() {
-	const { loading, errors, allPokemonStats } = useAllPokemon()
-	console.log(allPokemonStats)
-	let options = [...new Set(allPokemonStats.map((item) => item.pokemonType))]
-	const [filteredPokemon, setFilteredPokemon] = useState([])
-
-	useEffect(() => {
-		if (!loading && !errors) {
-			console.log({ loading, errors })
-			setFilteredPokemon(allPokemonStats)
-		}
-	}, [loading, errors])
-
-	if (errors) {
-		return <div>Oops</div>
-	}
-
-	if (loading) {
-		return <img src={pokeball} alt="loading" style={{ width: "225px" }} data-testid="pokeball-loading-gif" />
-	}
-
-	const filterByType = (type) => {
-		console.log(type.value.toLowerCase())
-		if (type.value.toLowerCase() === "all") {
-			setFilteredPokemon(allPokemonStats)
-		} else {
-			const newFilter = allPokemonStats.filter((pokemon) => pokemon.pokemonType === type.value.toLowerCase())
-			setFilteredPokemon(newFilter)
-		}
-	}
-
 	return (
-		<>
-			<Dropdown
-				options={["all", ...options]}
-				onChange={(value) => filterByType(value)}
-				value={"all"}
-				placeholder="Select an option"
-			/>
-			<div className="d-flex flex-wrap" data-testid="pokemon-home-page-wrapper">
-				{filteredPokemon.map((poke) => (
-					<div key={poke.pokedexId} className="p-1" data-testid={`home-page-card-${poke.pokemonName}`}>
-						<Link to={`/pokemon/${poke.pokedexId}`}>
-							<Name className="d-flex justify-content-center" data-testid={`home-page-name-${poke.pokemonName}`}>
-								{poke.pokedexId}. {poke.capitalizedPokemonName}
-							</Name>
-							<Picture name={poke.pokemonName} />
-						</Link>
-					</div>
-				))}
-			</div>
-		</>
+		<CenterdContent>
+			<IconContext.Provider value={{ size: "20em" }}>
+				<IconLink to={"/rpg/"} data-testid="rpg-link">
+					<CgGames />
+					<CenterdContentTitle>RPG</CenterdContentTitle>
+				</IconLink>
+				<IconLink to={"/pokemon/25"} data-testid="pokemon-link">
+					<CgPokemon />
+					<CenterdContentTitle>Pokemon</CenterdContentTitle>
+				</IconLink>
+				<IconLink to={"/stats/"} data-testid="stats-link">
+					<BsFillBarChartFill />
+					<CenterdContentTitle>Stats</CenterdContentTitle>
+				</IconLink>
+			</IconContext.Provider>
+		</CenterdContent>
 	)
 }
