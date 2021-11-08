@@ -22,13 +22,10 @@
 		"web-vitals": "^1.1.2"
 	},
 	"scripts": {
-		"cypress:gui_all_prod": "cypress open --env configFile=prod",
 		"cypress:gui_all_local": "cypress open --env configFile=local",
 		"cypress:all_local": "cypress run --env configFile=local",
 		"cypress:gui_smoke_local": "cypress open --config ignoreTestFiles=!**/*/smoke/**/* --env configFile=local",
 		"cypress:smoke_local": "cypress run --config ignoreTestFiles=!**/*/smoke/**/* --env configFile=local",
-		"cypress:gui_p1_local": "cypress open --config ignoreTestFiles=!**/*/p1/**/* --env configFile=local",
-		"cypress:p1_local": "cypress run --config ignoreTestFiles=!**/*/p1/**/* --env configFile=local",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
