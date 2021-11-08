@@ -1,15 +1,20 @@
 import "./index.css"
 import React from "react"
-import RouterComponent from "./common/Router"
+import Routes from "./common/Router"
+import Navigation from "./common/components/navigation"
 import { ApolloProvider } from "@apollo/client"
 import { createApolloClient } from "./common/apollo/apollo-client.js"
+import { BrowserRouter as Router } from "react-router-dom"
 
 export const apolloClient = createApolloClient()
 
 export default function App() {
 	return (
 		<ApolloProvider client={apolloClient}>
-			<RouterComponent />
+			<Router>
+				<Navigation />
+				<Routes />
+			</Router>
 		</ApolloProvider>
 	)
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components"
 import "../../common/style.css"
 import Picture from "./pokemon-picture"

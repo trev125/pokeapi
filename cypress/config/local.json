@@ -1,0 +1,6 @@
+{
+	"env": {
+		"environment": "local",
+		"testing_url": "http://localhost:3000/"
+	}
+}
